@@ -1,142 +1,43 @@
-# COMPREHENSIVE README.md FOR OPTIONS PRICING SYSTEM
-
-```markdown
 # 📈 Real-Time Options Pricing & Risk Analysis System
 
----
-
-## 🎯 Project Overview
-
-This is a **production-grade options pricing system** that automatically fetches real market data and prices options using both analytical (Black-Scholes) and numerical (Monte Carlo) methods. The system requires only a company ticker symbol and basic option parameters from the user.
-
-### The Core Philosophy
-
-> **"Black-Scholes provides one elegant answer in an ideal world; Monte Carlo shows the messy reality of all possible outcomes. Together, they create a robust pricing and risk management engine."**
-
-### What Makes This Project Unique?
-
-| Feature | Traditional Tools | This System |
-|---------|------------------|--------------|
-| Data Input | Manual price entry | Auto-fetches from Yahoo Finance |
-| Volatility | User must estimate | Calculated from 4 methods automatically |
-| Pricing Method | Single model | Dual validation (BS + MC) |
-| Risk Metrics | Basic or none | All 5 Greeks + confidence intervals |
-| Validation | None | Cross-validation between models |
-| Cost | Expensive ($1000s/month) | Free and open-source |
+A **production-grade quantitative finance engine** that automatically fetches live market data and prices options using both **Black-Scholes analytical models** and **Monte Carlo simulations**.
 
 ---
 
-## 📊 System Architecture
+# 🎯 Project Overview
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      USER INPUT (Minimal)                     │
-│  • Ticker Symbol (e.g., 'AAPL')                             │
-│  • Strike Price (K)                                          │
-│  • Time to Expiry (T)                                        │
-│  • Risk-Free Rate (r)                                        │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────────────┐
-│              DATA ACQUISITION LAYER                           │
-│  • Yahoo Finance API (yfinance)                             │
-│  • Auto-fetches real-time stock price (S)                   │
-│  • Downloads 1 year of historical data                      │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────────────┐
-│            VOLATILITY CALCULATION ENGINE                      │
-│  • Close-to-Close (20% weight)                              │
-│  • Parkinson (25% weight)                                    │
-│  • EWMA (40% weight)                                         │
-│  • Garman-Klass (15% weight)                                 │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────────────┐
-│                 PRICING ENGINES                               │
-│  ┌─────────────────────┐    ┌─────────────────────────────┐ │
-│  │  BLACK-SCHOLES       │    │  MONTE CARLO                 │ │
-│  │  • Exact formula      │    │  • 10,000+ paths             │ │
-│  │  • Instant (<0.01s)   │    │  • Confidence intervals      │ │
-│  │  • All 5 Greeks       │    │  • Convergence analysis      │ │
-│  └─────────────────────┘    └─────────────────────────────┘ │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-                     ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   OUTPUT LAYER                                │
-│  • Fair option price          • Price distribution           │
-│  • All Greeks                 • Convergence plots            │
-│  • 95% Confidence Intervals   • Risk metrics                 │
-└─────────────────────────────────────────────────────────────┘
-```
+This system is designed to bridge the gap between **theoretical option pricing** and **real-world market dynamics**.
+
+Instead of requiring users to manually input stock prices or estimate volatility, the engine automatically retrieves real market data and computes robust volatility estimates using multiple quantitative techniques.
+
+> **"Black-Scholes provides one elegant answer in an ideal world; Monte Carlo reveals the full probabilistic landscape of market uncertainty."**
 
 ---
 
-## ✨ Key Features
+# ✨ Key Features
 
-### 1. **Auto-Market Data Integration**
-- No manual price entry needed
-- Fetches real-time stock prices from Yahoo Finance
-- Downloads historical data for volatility calculation
+## ✅ Automated Market Data Fetching
+- Real-time stock price retrieval using Yahoo Finance
+- Automatic historical data download
+- Minimal user input required
 
-### 2. **Multi-Method Volatility Estimation**
-Solves the "invisible parameter" problem using 4 methods:
+## ✅ Advanced Volatility Estimation
+The system calculates implied market uncertainty using four independent estimators:
 
-| Method | Description | Best For |
+| Method | Description | Use Case |
 |--------|-------------|----------|
-| **Close-to-Close** | Standard log returns method | Benchmark comparison |
-| **Parkinson** | High-Low range estimator | Intraday volatility capture |
-| **EWMA** | Exponentially weighted (λ=0.94) | Recent market conditions |
-| **Garman-Klass** | OHLC estimator | Most information-efficient |
+| **Close-to-Close** | Standard log-return volatility | Baseline estimate |
+| **Parkinson** | High-Low range estimator | Captures intraday movement |
+| **EWMA** | Exponentially weighted volatility | Reacts to recent market shocks |
+| **Garman-Klass** | OHLC volatility estimator | Information-efficient estimator |
 
-### 3. **Dual Pricing Engines**
-
-#### Black-Scholes (Analytical)
-- Exact closed-form solution
-- Instantaneous calculation
-- All 5 Greeks (Delta, Gamma, Theta, Vega, Rho)
-
-#### Monte Carlo (Numerical)
-- 10,000+ simulated price paths
-- Confidence intervals (95%)
-- Convergence analysis
-- Distribution of outcomes
-
-### 4. **Comprehensive Risk Metrics**
-- **Probability ITM** - Chance of expiring in-the-money
-- **Probability of Profit** - Chance of positive return
-- **Breakeven Analysis** - Required stock move for profit
-- **Risk/Reward Ratios** - Premium vs potential gain
-- **Maximum Loss** - Premium paid
-
-### 5. **Model Validation**
-- Automatic comparison between BS and MC
-- Confidence interval checking
-- Validation pass/fail reporting
-
-### 6. **Professional Visualizations**
-- Volatility method comparison
-- Price convergence charts
-- Distribution histograms
-- Greeks dashboard
-- Sensitivity heatmaps
-- Sample price paths
-
----
-
-## 🚀 Installation
-
-### Prerequisites
-
-```bash
-Python 3.8 or higher
-pip package manager
-Internet connection (for data fetching)
-```
+### Weighted Volatility Engine
+```text
+Final Volatility =
+0.20 × Close-to-Close +
+0.25 × Parkinson +
+0.40 × EWMA +
+0.15 × Garman-Klass
 
 ### Step 1: Clone or Download
 
