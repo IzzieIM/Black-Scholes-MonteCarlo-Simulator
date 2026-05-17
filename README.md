@@ -39,6 +39,8 @@ Final Volatility =
 0.40 × EWMA +
 0.15 × Garman-Klass
 
+```
+
 ### Step 1: Clone or Download
 
 ```bash
