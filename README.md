@@ -17,5 +17,4 @@ An integrated financial system that automatically fetches real market data, calc
 ### 1. Clone or download the project
 
 ```bash
-git clone <your-repo-url>
-cd options_pricing_system
+git clone https://github.com/IzzieIM/Black-Scholes-MonteCarlo-Simulator.git
